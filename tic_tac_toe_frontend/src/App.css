@@ -1,0 +1,205 @@
+:root {
+  --ttt-primary: #1976d2;
+  --ttt-accent: #ffca28;
+  --ttt-secondary: #424242;
+  --ttt-bg: #f6f7fb;
+  --ttt-board-bg: #fff;
+  --ttt-status-win: var(--ttt-accent);
+  --ttt-status-draw: #bdbdbd;
+  --ttt-status-turn: var(--ttt-primary);
+  --ttt-cell-border: #e3e3e3;
+  --ttt-cell-font: #222;
+  --ttt-btn-bg: var(--ttt-primary);
+  --ttt-btn-text: #fff;
+  --ttt-btn-hover: #165cad;
+  --ttt-shadow: 0 4px 32px rgba(25, 118, 210, 0.06);
+}
+
+html,
+body {
+  background: var(--ttt-bg);
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  color: var(--ttt-secondary);
+}
+
+/* Main centered panel */
+.ttt-main-panel {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 10px 16px;
+  background: var(--ttt-bg);
+}
+
+.ttt-title {
+  font-size: 2.35rem;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.ttt-status {
+  margin-bottom: 18px;
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  min-height: 2.2em;
+  transition: color 0.2s cubic-bezier(0.5,0,0.5,1);
+}
+.status-win {
+  color: var(--ttt-status-win);
+  text-shadow: 0 4px 8px rgba(255, 202, 40, 0.08);
+}
+.status-draw {
+  color: var(--ttt-status-draw);
+}
+.status-turn {
+  color: var(--ttt-status-turn);
+}
+
+/* Tic Tac Toe 3x3 board */
+.ttt-board {
+  display: grid;
+  grid-template-columns: repeat(3, 64px);
+  grid-template-rows: repeat(3, 64px);
+  gap: 12px;
+  background: var(--ttt-board-bg);
+  border-radius: 18px;
+  box-shadow: var(--ttt-shadow);
+  padding: 16px;
+  margin-bottom: 22px;
+  transition: box-shadow 0.2s;
+}
+
+.ttt-cell {
+  width: 64px;
+  height: 64px;
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--ttt-primary);
+  background: #fcfcfc;
+  border: 2.5px solid var(--ttt-cell-border);
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.18s, background 0.2s, transform 0.18s, color 0.19s;
+  outline: none;
+  will-change: transform;
+  box-shadow: none;
+  position: relative;
+  z-index: 0;
+}
+.ttt-cell.filled {
+  color: var(--ttt-secondary);
+  background: #f9fafb;
+  cursor: default;
+}
+.ttt-cell.win {
+  background: var(--ttt-accent);
+  color: var(--ttt-secondary);
+  border-color: var(--ttt-accent);
+  box-shadow: 0 0 18px 0 rgba(255,202,40, 0.14);
+  animation: ttt-win-pop 0.5s;
+}
+@keyframes ttt-win-pop {
+  10% { transform: scale(1.04);}
+  50% { transform: scale(1.15);}
+  80% { transform: scale(1.09);}
+  100% { transform: scale(1.00);}
+}
+.ttt-cell.pop {
+  animation: ttt-cell-pop 0.20s;
+}
+@keyframes ttt-cell-pop {
+  0%   { transform: scale(1.00);}
+  30%  { transform: scale(1.17);}
+  70%  { transform: scale(0.94);}
+  100% { transform: scale(1.00);}
+}
+.ttt-cell:active:enabled {
+  background: var(--ttt-accent);
+  color: var(--ttt-secondary);
+  border-color: var(--ttt-accent);
+}
+
+.ttt-cell:disabled {
+  cursor: default;
+  opacity: 0.76;
+}
+
+/* Action Bar */
+.ttt-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 14px;
+  margin-bottom: 16px;
+}
+.ttt-btn {
+  padding: 0.68em 2.4em;
+  border: none;
+  border-radius: 230px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: var(--ttt-btn-bg);
+  color: var(--ttt-btn-text);
+  cursor: pointer;
+  outline: none;
+  box-shadow: var(--ttt-shadow);
+  letter-spacing: 0.04em;
+  transition: background 0.2s, color 0.2s, transform 0.11s;
+}
+.ttt-btn:hover, .ttt-btn:focus {
+  background: var(--ttt-btn-hover);
+  transform: translateY(-2px) scale(1.04);
+}
+.ttt-btn:active {
+  transform: scale(0.98);
+}
+
+/* Footer */
+.ttt-footer {
+  margin-top: 32px;
+  font-size: 1rem;
+  color: var(--ttt-secondary);
+  opacity: 0.72;
+}
+/* Responsive for mobile */
+@media (max-width: 500px) {
+  .ttt-board {
+    grid-template-columns: repeat(3, 44px);
+    grid-template-rows: repeat(3, 44px);
+    gap: 7.5px;
+    padding: 8px;
+  }
+  .ttt-cell {
+    width: 44px;
+    height: 44px;
+    font-size: 1.3rem;
+    border-radius: 7px;
+  }
+  .ttt-title {
+    font-size: 1.2rem;
+  }
+  .ttt-main-panel {
+    padding: 8px 0; 
+  }
+  .ttt-footer {
+    margin-top: 22px;
+    font-size: 0.92rem;
+  }
+  .ttt-actions .ttt-btn {
+    font-size: 0.97rem;
+    padding: 0.56em 1.9em;
+  }
+}
